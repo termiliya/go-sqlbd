@@ -79,9 +79,24 @@ func (ctb *CreateTableBuilder) Define(def ...string) *CreateTableBuilder {
 	return ctb
 }
 
+func (ctb *CreateTableBuilder) FieldComment(comment string) *CreateTableBuilder {
+	str := "comment '" + comment + "'"
+	ctb.defs[len(ctb.defs)-1] = append(ctb.defs[len(ctb.defs)-1], str)
+	ctb.marker = createTableMarkerAfterDefine
+	return ctb
+}
+
 // Option adds a table option in CREATE TABLE.
 func (ctb *CreateTableBuilder) Option(opt ...string) *CreateTableBuilder {
 	ctb.options = append(ctb.options, opt)
+	ctb.marker = createTableMarkerAfterOption
+	return ctb
+}
+
+// TableComment adds a table option in CREATE TABLE.
+func (ctb *CreateTableBuilder) TableComment(comment string) *CreateTableBuilder {
+	str := "comment='" + comment + "'"
+	ctb.options[len(ctb.options)-1] = append(ctb.options[len(ctb.options)-1], str)
 	ctb.marker = createTableMarkerAfterOption
 	return ctb
 }

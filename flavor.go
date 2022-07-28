@@ -81,6 +81,12 @@ func (f Flavor) NewCreateTableBuilder() *CreateTableBuilder {
 	return b
 }
 
+func (f Flavor) NewAlterTableBuilder() *AlterTableBuilder {
+	b := newAlterTableBuilder()
+	b.SetFlavor(f)
+	return b
+}
+
 // NewDeleteBuilder creates a new DELETE builder with flavor.
 func (f Flavor) NewDeleteBuilder() *DeleteBuilder {
 	b := newDeleteBuilder()
